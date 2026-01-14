@@ -1,73 +1,58 @@
 # Author: Sam Baird
 # GitHub username: OSU-S13BAIRD
 # Date: 01/14/2026
-# Description: A Taxicab class that represents a vehicle moving on a 2D grid,
-#              tracking both its current position and total distance traveled.
+# Description: Implements a Student class for storing student information and a
+#              basic_stats function that computes statistical measures from student grades.
+
+import statistics
 
 
-class Taxicab:
+class Student:
     """
-    A class representing a taxicab operating on a two-dimensional coordinate plane.
+    A class that encapsulates student information including name and grade.
     
-    The taxicab maintains its current location and records cumulative distance
-    traveled through an odometer that increments with each movement.
+    This class maintains private data members for student identification
+    and academic performance tracking.
     """
 
-    def __init__(self, x_coord, y_coord):
+    def __init__(self, name, grade):
         """
-        Constructs a new Taxicab instance at specified coordinates.
+        Creates a Student instance with specified name and grade.
         
         Parameters:
-            x_coord: Initial horizontal position on the coordinate plane
-            y_coord: Initial vertical position on the coordinate plane
+            name: The student's name
+            grade: The student's numeric grade
         """
-        self._x_coord = x_coord
-        self._y_coord = y_coord
-        self._odometer = 0
+        self._name = name
+        self._grade = grade
 
-    def get_x_coord(self):
+    def get_grade(self):
         """
-        Retrieves the taxicab's current horizontal coordinate.
+        Retrieves the student's grade.
         
         Returns:
-            The current x-coordinate value
+            The numeric grade value for this student
         """
-        return self._x_coord
+        return self._grade
 
-    def get_y_coord(self):
-        """
-        Retrieves the taxicab's current vertical coordinate.
-        
-        Returns:
-            The current y-coordinate value
-        """
-        return self._y_coord
 
-    def get_odometer(self):
-        """
-        Retrieves the total distance the taxicab has traveled.
+def basic_stats(student_list):
+    """
+    Computes statistical measures for a collection of students.
+    
+    Calculates the mean, median, and mode of grades from the provided
+    list of Student objects.
+    
+    Parameters:
+        student_list: A list containing Student objects
         
-        Returns:
-            The cumulative odometer reading
-        """
-        return self._odometer
-
-    def move_x(self, shift):
-        """
-        Shifts the taxicab's position along the horizontal axis.
-        
-        Parameters:
-            shift: Distance to move (positive for rightward, negative for leftward)
-        """
-        self._x_coord += shift
-        self._odometer += abs(shift)
-
-    def move_y(self, shift):
-        """
-        Shifts the taxicab's position along the vertical axis.
-        
-        Parameters:
-            shift: Distance to move (positive for upward, negative for downward)
-        """
-        self._y_coord += shift
-        self._odometer += abs(shift)
+    Returns:
+        A tuple containing (mean, median, mode) of all student grades
+    """
+    grade_values = [student.get_grade() for student in student_list]
+    
+    grade_mean = statistics.mean(grade_values)
+    grade_median = statistics.median(grade_values)
+    grade_mode = statistics.mode(grade_values)
+    
+    return (grade_mean, grade_median, grade_mode)
